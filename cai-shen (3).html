@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cai Shen – Čínská restaurace Praha 6</title>
+  <meta name="description" content="Cai Shen – autentická čínská restaurace v Praze 6 Dejvice. Velké porce, skvělá obsluha, ceny 100–200 Kč. Otevřeno každý den do 22:00." />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --forest: #1a2e1a;
+      --forest-mid: #243824;
+      --forest-light: #2f4a2f;
+      --gold: #c9a84c;
+      --gold-light: #e2c97a;
+      --cream: #f9f5ee;
+      --cream-dark: #f0e9d8;
+      --text: #2c2c2c;
+      --text-muted: #6b6b6b;
+      --white: #ffffff;
+      --radius: 12px;
+      --radius-lg: 20px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.09);
+      --shadow-lg: 0 12px 48px rgba(0,0,0,0.14);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--cream); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 18px 5vw;
+      display: flex; justify-content: space-between; align-items: center;
+      transition: background 0.4s, box-shadow 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(26,46,26,0.97);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; color: var(--gold);
+      text-decoration: none; letter-spacing: 0.04em;
+    }
+    .nav-logo span { color: var(--white); font-style: italic; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.85); text-decoration: none;
+      font-size: 0.875rem; font-weight: 500;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--gold) !important;
+      color: var(--forest) !important;
+      padding: 10px 22px; border-radius: 50px;
+      font-weight: 700 !important;
+    }
+    .nav-cta:hover { background: var(--gold-light) !important; }
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--white); border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh; background: var(--forest);
+      display: flex; align-items: center;
+      position: relative; overflow: hidden; padding: 120px 5vw 80px;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 15% 85%, rgba(201,168,76,0.10) 0%, transparent 50%),
+        radial-gradient(circle at 85% 15%, rgba(201,168,76,0.07) 0%, transparent 50%);
+    }
+    .hero-ring {
+      position: absolute; right: -80px; top: 50%; transform: translateY(-50%);
+      width: 580px; height: 580px;
+      border: 1.5px solid rgba(201,168,76,0.12); border-radius: 50%;
+    }
+    .hero-ring::before {
+      content: ''; position: absolute; inset: 48px;
+      border: 1px solid rgba(201,168,76,0.08); border-radius: 50%;
+    }
+    .hero-ring::after {
+      content: ''; position: absolute; inset: 96px;
+      border: 1px solid rgba(201,168,76,0.05); border-radius: 50%;
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 680px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold); font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 8px 18px; border-radius: 50px; margin-bottom: 2rem;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      color: var(--white); line-height: 1.1; margin-bottom: 1.5rem;
+    }
+    h1 em { color: var(--gold); font-style: italic; }
+    .hero-sub {
+      font-size: 1.1rem; color: rgba(255,255,255,0.65);
+      line-height: 1.75; max-width: 520px; margin-bottom: 2.5rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+    .btn-primary {
+      background: var(--gold); color: var(--forest);
+      padding: 16px 34px; border-radius: 50px;
+      font-weight: 700; font-size: 0.95rem;
+      text-decoration: none; letter-spacing: 0.02em;
+      transition: all 0.25s; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary:hover {
+      background: var(--gold-light); transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(201,168,76,0.35);
+    }
+    .btn-outline {
+      border: 1.5px solid rgba(255,255,255,0.3); color: var(--white);
+      padding: 15px 34px; border-radius: 50px;
+      font-weight: 500; font-size: 0.95rem; text-decoration: none;
+      transition: all 0.25s;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+    .hero-stats {
+      display: flex; gap: 3rem; margin-top: 4rem;
+      padding-top: 2.5rem; border-top: 1px solid rgba(255,255,255,0.1);
+      flex-wrap: wrap;
+    }
+    .stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; color: var(--gold); font-weight: 700; display: block;
+    }
+    .stat-label {
+      font-size: 0.78rem; color: rgba(255,255,255,0.5);
+      letter-spacing: 0.05em; text-transform: uppercase; margin-top: 4px;
+    }
+
+    /* ABOUT */
+    #about { padding: 100px 5vw; background: var(--cream); }
+    .about-grid {
+      max-width: 1140px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 6rem; align-items: center;
+    }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+      color: var(--forest); line-height: 1.2; margin-bottom: 1.5rem;
+    }
+    .about-text {
+      font-size: 1.05rem; color: var(--text-muted);
+      line-height: 1.8; margin-bottom: 1.4rem;
+    }
+    .about-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+    .about-bullets li {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 0.95rem; font-weight: 500;
+    }
+    .about-bullets li::before {
+      content: ''; width: 8px; height: 8px;
+      background: var(--gold); border-radius: 50%; flex-shrink: 0;
+    }
+    .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .card {
+      background: var(--white); border-radius: var(--radius-lg);
+      padding: 1.75rem; box-shadow: var(--shadow);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+    .card.dark {
+      background: var(--forest); color: var(--white);
+      grid-column: span 2;
+    }
+    .card-icon { font-size: 2rem; margin-bottom: 0.75rem; display: block; }
+    .card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--forest);
+    }
+    .card.dark h3 { color: var(--gold); }
+    .card p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.65; }
+    .card.dark p { color: rgba(255,255,255,0.6); }
+
+    /* MENU */
+    #menu { padding: 100px 5vw; background: var(--forest); }
+    .menu-header { text-align: center; max-width: 600px; margin: 0 auto 3.5rem; }
+    .menu-header .section-label { color: rgba(201,168,76,0.8); }
+    .menu-header h2 { color: var(--white); }
+    .menu-header p { color: rgba(255,255,255,0.55); font-size: 1rem; line-height: 1.7; margin-top: 1rem; }
+    .tabs {
+      display: flex; justify-content: center; gap: 0.5rem;
+      margin-bottom: 3rem; flex-wrap: wrap;
+    }
+    .tab {
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.65);
+      padding: 9px 22px; border-radius: 50px;
+      font-size: 0.85rem; font-weight: 500; cursor: pointer;
+      transition: all 0.2s; font-family: 'Inter', sans-serif;
+    }
+    .tab:hover, .tab.active {
+      background: var(--gold); border-color: var(--gold);
+      color: var(--forest); font-weight: 700;
+    }
+    .menu-grid {
+      max-width: 1140px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+    .menu-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      transition: all 0.3s; cursor: default;
+    }
+    .menu-card:hover {
+      background: rgba(255,255,255,0.09);
+      border-color: rgba(201,168,76,0.35);
+      transform: translateY(-3px);
+    }
+    .menu-card.star { background: rgba(201,168,76,0.08); border-color: rgba(201,168,76,0.3); }
+    .menu-card.hidden { display: none; }
+    .menu-card-info { flex: 1; }
+    .menu-id {
+      display: inline-block; font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--gold); background: rgba(201,168,76,0.14);
+      padding: 3px 10px; border-radius: 50px; margin-bottom: 0.65rem;
+    }
+    .menu-card.star .menu-id {
+      background: rgba(201,168,76,0.22); color: var(--gold-light);
+    }
+    .menu-name {
+      font-size: 0.975rem; color: var(--white);
+      line-height: 1.45; font-weight: 400;
+    }
+    .menu-card.star .menu-name { font-weight: 500; }
+    .menu-star-icon {
+      font-size: 0.85rem; margin-left: 6px; opacity: 0.8;
+    }
+    .menu-footer { text-align: center; margin-top: 3rem; }
+    .menu-footer p { color: rgba(255,255,255,0.45); font-size: 0.875rem; margin-bottom: 1.25rem; }
+    .menu-wrap {
+      position: relative;
+    }
+    .menu-wrap.collapsed .menu-grid {
+      max-height: var(--row-h, 120px);
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+    }
+    .menu-wrap:not(.collapsed) .menu-grid {
+      max-height: 9999px;
+      overflow: visible;
+      transition: max-height 0.7s ease;
+    }
+    .menu-fade-overlay {
+      display: none;
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(to bottom, transparent, #1a2e1a 90%);
+      pointer-events: none;
+    }
+    .menu-wrap.collapsed .menu-fade-overlay { display: block; }
+    .btn-show-more {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent;
+      border: 1.5px solid rgba(201,168,76,0.5);
+      color: var(--gold);
+      padding: 12px 30px; border-radius: 50px;
+      font-size: 0.9rem; font-weight: 600;
+      cursor: pointer; font-family: 'Inter', sans-serif;
+      transition: all 0.25s; margin-bottom: 1.5rem;
+    }
+    .btn-show-more:hover {
+      background: rgba(201,168,76,0.1);
+      border-color: var(--gold);
+    }
+    .btn-show-more .arrow {
+      display: inline-block;
+      transition: transform 0.3s;
+    }
+    .btn-show-more.open .arrow { transform: rotate(180deg); }
+
+    /* REVIEWS */
+    #reviews { padding: 100px 5vw; background: var(--cream-dark); }
+    .reviews-header { text-align: center; max-width: 600px; margin: 0 auto 4rem; }
+    .rating-display {
+      display: flex; align-items: baseline; justify-content: center;
+      gap: 0.75rem; margin-bottom: 0.4rem;
+    }
+    .rating-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.5rem; color: var(--forest); font-weight: 700; line-height: 1;
+    }
+    .rating-stars { font-size: 1.6rem; color: var(--gold); letter-spacing: 3px; }
+    .rating-sub { font-size: 0.875rem; color: var(--text-muted); margin-top: 0.3rem; }
+    .reviews-header h2 { margin-top: 1.75rem; }
+    .reviews-grid {
+      max-width: 1140px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .review {
+      background: var(--white); border-radius: var(--radius-lg);
+      padding: 2rem; box-shadow: var(--shadow);
+      transition: transform 0.3s;
+    }
+    .review:hover { transform: translateY(-5px); }
+    .review-stars { color: var(--gold); font-size: 1rem; letter-spacing: 2px; margin-bottom: 1rem; }
+    .review-text {
+      font-size: 0.95rem; color: var(--text-muted);
+      line-height: 1.8; font-style: italic; margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .review-text::before {
+      content: '\201E'; color: var(--gold);
+      font-size: 2rem; line-height: 0;
+      vertical-align: -0.5em; margin-right: 2px;
+      font-family: 'Playfair Display', serif;
+    }
+    .review-author { display: flex; align-items: center; gap: 12px; }
+    .avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--forest); display: flex;
+      align-items: center; justify-content: center;
+      font-weight: 700; color: var(--gold);
+      font-size: 0.875rem; flex-shrink: 0;
+    }
+    .author-name { font-weight: 600; font-size: 0.9rem; }
+    .author-date { font-size: 0.8rem; color: var(--text-muted); }
+
+    /* INFO */
+    #info { padding: 100px 5vw; background: var(--white); }
+    .info-grid {
+      max-width: 1140px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.2fr 1fr;
+      gap: 5rem; align-items: start;
+    }
+    .info-block {
+      background: var(--cream); border-radius: var(--radius-lg);
+      padding: 2rem; margin-bottom: 1.5rem;
+    }
+    .info-block h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; color: var(--forest);
+      margin-bottom: 1.1rem;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .info-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 9px 0; border-bottom: 1px solid rgba(0,0,0,0.06);
+      font-size: 0.9rem;
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-row .label { color: var(--text-muted); }
+    .info-row .value { font-weight: 600; color: var(--text); }
+    .info-row .value.green { color: var(--forest); }
+    .map-box {
+      background: var(--forest); border-radius: var(--radius-lg);
+      height: 260px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      color: var(--white); text-align: center;
+      margin-bottom: 1.25rem; position: relative; overflow: hidden;
+    }
+    .map-box::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(201,168,76,0.1) 0%, transparent 65%);
+    }
+    .map-box > * { position: relative; z-index: 1; }
+    .map-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .map-box h3 { font-family: 'Playfair Display', serif; color: var(--gold); margin-bottom: 0.3rem; }
+    .map-box p { font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
+    .cta-link {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      text-decoration: none; border-radius: var(--radius);
+      padding: 15px 24px; font-weight: 600; font-size: 0.95rem;
+      transition: all 0.25s; width: 100%; margin-bottom: 0.75rem;
+    }
+    .cta-link.dark { background: var(--forest); color: var(--white); }
+    .cta-link.dark:hover { background: var(--forest-light); transform: translateY(-2px); }
+    .cta-link.gold { background: var(--gold); color: var(--forest); }
+    .cta-link.gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+    /* CTA */
+    #cta { padding: 90px 5vw; background: var(--forest); text-align: center; }
+    .cta-wrap { max-width: 680px; margin: 0 auto; }
+    .cta-wrap .section-label { color: rgba(201,168,76,0.8); }
+    .cta-wrap h2 { color: var(--white); margin-bottom: 1rem; }
+    .cta-wrap p {
+      color: rgba(255,255,255,0.6); font-size: 1.05rem;
+      line-height: 1.75; margin-bottom: 2.5rem;
+    }
+    .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    /* FOOTER */
+    footer { background: #0d160d; padding: 3rem 5vw; text-align: center; }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; color: var(--gold); margin-bottom: 1.25rem;
+    }
+    .footer-logo span { color: rgba(255,255,255,0.45); font-style: italic; }
+    .footer-nav {
+      display: flex; gap: 2rem; justify-content: center;
+      flex-wrap: wrap; margin-bottom: 1.5rem; list-style: none;
+    }
+    .footer-nav a {
+      font-size: 0.78rem; color: rgba(255,255,255,0.4);
+      text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .footer-nav a:hover { color: var(--gold); }
+    .footer-copy { font-size: 0.82rem; color: rgba(255,255,255,0.3); line-height: 1.8; }
+
+    /* ANIMATIONS */
+    .fade { opacity: 0; transform: translateY(28px); transition: opacity 0.75s ease, transform 0.75s ease; }
+    .fade.in { opacity: 1; transform: translateY(0); }
+    .fade.delay-1 { transition-delay: 0.1s; }
+    .fade.delay-2 { transition-delay: 0.2s; }
+    .fade.delay-3 { transition-delay: 0.3s; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .about-grid, .info-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-ring { display: none; }
+      .hero-stats { gap: 1.5rem; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+        background: var(--forest); align-items: center; justify-content: center;
+        gap: 2rem; z-index: 200;
+      }
+      .nav-links.open a { font-size: 1.2rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .card.dark { grid-column: span 1; }
+      h1 { font-size: 2.4rem; }
+      .hero-stats { flex-direction: column; gap: 1.25rem; }
+      .cta-btns { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">蔡 <span>Cai Shen</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about" onclick="closeMenu()">O nás</a></li>
+    <li><a href="#menu" onclick="closeMenu()">Menu</a></li>
+    <li><a href="#reviews" onclick="closeMenu()">Recenze</a></li>
+    <li><a href="#info" onclick="closeMenu()">Kontakt</a></li>
+    <li><a href="tel:233334088" class="nav-cta" onclick="closeMenu()">📞 Objednat</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-ring"></div>
+  <div class="hero-content">
+    <div class="hero-badge">★ Praha 6 · Dejvice · Každý den 11:00 – 22:00</div>
+    <h1>Kde každé jídlo<br>chutná jako <em>domov</em></h1>
+    <p class="hero-sub">
+      Autentická čínská kuchyně, velkorysé porce a obsluha, na kterou se nezapomíná.
+      Přijďte na oběd, večeři – nebo si objednejte domů.
+    </p>
+    <div class="hero-actions">
+      <a href="#menu" class="btn-primary">Prohlédnout menu →</a>
+      <a href="tel:233334088" class="btn-outline">📞 233 334 088</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <span class="stat-value">4,5 ★</span>
+        <span class="stat-label">537 recenzí Google</span>
+      </div>
+      <div>
+        <span class="stat-value">100–200 Kč</span>
+        <span class="stat-label">Hlavní jídlo</span>
+      </div>
+      <div>
+        <span class="stat-value">do 22:00</span>
+        <span class="stat-label">Každý den</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="fade">
+      <div class="section-label">Náš příběh</div>
+      <h2>Víc než restaurace.<br>Místo, kam se vrací lidé rádi.</h2>
+      <p class="about-text">
+        Cai Shen (財神 – bůh bohatství a hojnosti) není jen název. Je to příslib:
+        přijdete hladoví, odejdete spokojeni – s plným žaludkem i v dobré náladě.
+      </p>
+      <p class="about-text">
+        Vaříme poctivě, porcujeme štědře a přivítáme vás s úsměvem, ať přijdete
+        ve spěchu na oběd nebo si chcete v klidu vychutnat večeři.
+      </p>
+      <ul class="about-bullets">
+        <li>Čerstvé suroviny, tradiční recepty</li>
+        <li>Porce, které skutečně zasytí</li>
+        <li>Obsluha, která si vás pamatuje</li>
+        <li>Klidná atmosféra – bez hluku a spěchu</li>
+        <li>Ideální pro oběd i romantickou večeři</li>
+      </ul>
+    </div>
+    <div class="cards-grid fade delay-1">
+      <div class="card dark">
+        <span class="card-icon">🍜</span>
+        <h3>Čínská tradice v srdci Dejvic</h3>
+        <p>Autentické receptury přivezené přímo z čínských kuchyní – uvařené s láskou a podávané s hrdostí.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🛵</span>
+        <h3>S sebou & rozvoz</h3>
+        <p>Nestíháte? Objednejte telefonicky nebo online a vyzvedněte si jídlo.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🥢</span>
+        <h3>Posezení na místě</h3>
+        <p>Příjemné a klidné prostředí – pro rychlý oběd i pohodovou večeři.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="menu-header fade">
+    <div class="section-label">Jídelní lístek</div>
+    <h2>Co u nás chutná nejlépe</h2>
+    <p>Celý jídelní lístek – 55 jídel přehledně rozdělených do kategorií. Filtrujte podle chuti. ⭐ označuje oblíbená jídla hostů.</p>
+  </div>
+  <div class="tabs fade delay-1">
+    <button class="tab active" data-filter="vse">🍽️ Vše</button>
+    <button class="tab" data-filter="kureci">🐔 Kuřecí</button>
+    <button class="tab" data-filter="veprove">🐷 Vepřové</button>
+    <button class="tab" data-filter="hovezi">🐄 Hovězí</button>
+    <button class="tab" data-filter="kachna">🦆 Kachna</button>
+    <button class="tab" data-filter="ryba">🦐 Ryba & Mořské plody</button>
+    <button class="tab" data-filter="nudle">🍜 Nudle & Rýže</button>
+    <button class="tab" data-filter="vegeta">🥦 Vegetariánské</button>
+    <button class="tab" data-filter="thajska">🌏 Thajská kuchyně</button>
+    <button class="tab" data-filter="ostatni">🧀 Ostatní</button>
+  </div>
+  <div class="menu-wrap collapsed" id="menuWrap">
+    <div class="menu-grid fade delay-2" id="menuGrid">
+
+    <div class="menu-card" data-cat="kureci">
+      <div class="menu-card-info">
+        <span class="menu-id">M16</span>
+        <div class="menu-name">Kuře s mandlemi a rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="kureci">
+      <div class="menu-card-info">
+        <span class="menu-id">M17</span>
+        <div class="menu-name">Křehké a voňavé pečené kuřecí plátky s rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="kureci">
+      <div class="menu-card-info">
+        <span class="menu-id">M18</span>
+        <div class="menu-name">Křehké a voňavé kuřecí prsa s rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="kureci">
+      <div class="menu-card-info">
+        <span class="menu-id">M19</span>
+        <div class="menu-name">Smažené kuřecí kousky s hranolkami</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="kureci">
+      <div class="menu-card-info">
+        <span class="menu-id">M21</span>
+        <div class="menu-name">Kuře s citronovou omáčkou a rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="kureci">
+      <div class="menu-card-info">
+        <span class="menu-id">M22</span>
+        <div class="menu-name">Kuře ve sladkokyselé omáčce s rýží</div>
+      </div>
+    </div>
+    <div class="menu-card star" data-cat="kureci">
+      <div class="menu-card-info">
+        <span class="menu-id">M24</span>
+        <div class="menu-name">Kuře se žampiony a rýží <span class="menu-star-icon">⭐</span></div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="kureci">
+      <div class="menu-card-info">
+        <span class="menu-id">M25</span>
+        <div class="menu-name">Pekingské kuře s rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="kureci">
+      <div class="menu-card-info">
+        <span class="menu-id">M26</span>
+        <div class="menu-name">Pálivé kuřecí nudličky s rýží</div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-cat="veprove">
+      <div class="menu-card-info">
+        <span class="menu-id">M27</span>
+        <div class="menu-name">Míchaná vepřové maso s rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="veprove">
+      <div class="menu-card-info">
+        <span class="menu-id">M28</span>
+        <div class="menu-name">Vepřové maso s bambus. výhonky a houbami, rýže</div>
+      </div>
+    </div>
+    <div class="menu-card star" data-cat="veprove">
+      <div class="menu-card-info">
+        <span class="menu-id">M29</span>
+        <div class="menu-name">Vepřové „Kung-pao" s rýží <span class="menu-star-icon">⭐</span></div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="veprove">
+      <div class="menu-card-info">
+        <span class="menu-id">M30</span>
+        <div class="menu-name">Vepřové po Sečuánsku s rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="veprove">
+      <div class="menu-card-info">
+        <span class="menu-id">M32</span>
+        <div class="menu-name">Vepřové ve sladkokyselé omáčce s rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="veprove">
+      <div class="menu-card-info">
+        <span class="menu-id">M34</span>
+        <div class="menu-name">Pálivé vepřové nudličky s rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="veprove">
+      <div class="menu-card-info">
+        <span class="menu-id">M35</span>
+        <div class="menu-name">Vepřové maso v čínské omáčce s rýží</div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-cat="hovezi">
+      <div class="menu-card-info">
+        <span class="menu-id">M36</span>
+        <div class="menu-name">Hovězí maso s bambus. výhonky a houbami, rýže</div>
+      </div>
+    </div>
+    <div class="menu-card star" data-cat="hovezi">
+      <div class="menu-card-info">
+        <span class="menu-id">M37</span>
+        <div class="menu-name">Hovězí po Sečuánsku s rýží <span class="menu-star-icon">⭐</span></div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="hovezi">
+      <div class="menu-card-info">
+        <span class="menu-id">M38</span>
+        <div class="menu-name">Hovězí na cibuli s rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="hovezi">
+      <div class="menu-card-info">
+        <span class="menu-id">M39</span>
+        <div class="menu-name">Ostrá omáčka s osmi poklady a rýží</div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-cat="kachna">
+      <div class="menu-card-info">
+        <span class="menu-id">M40</span>
+        <div class="menu-name">Kachna tří chutí s rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="kachna">
+      <div class="menu-card-info">
+        <span class="menu-id">M41</span>
+        <div class="menu-name">Kachna s bambus. výhonky a houbami, rýže</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="kachna">
+      <div class="menu-card-info">
+        <span class="menu-id">M43</span>
+        <div class="menu-name">Kachna s ananasem a rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="kachna">
+      <div class="menu-card-info">
+        <span class="menu-id">M44</span>
+        <div class="menu-name">Míchaná kachna s rýží</div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-cat="ryba">
+      <div class="menu-card-info">
+        <span class="menu-id">M45</span>
+        <div class="menu-name">Křehké rybí plátky s rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="ryba">
+      <div class="menu-card-info">
+        <span class="menu-id">M46</span>
+        <div class="menu-name">Ryba s bambusovými výhonky a houbami, rýže</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="ryba">
+      <div class="menu-card-info">
+        <span class="menu-id">M47</span>
+        <div class="menu-name">Ryba po Sečuánsku s rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="ryba">
+      <div class="menu-card-info">
+        <span class="menu-id">M48</span>
+        <div class="menu-name">Ryba ve sladkokyselé omáčce s rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="ryba">
+      <div class="menu-card-info">
+        <span class="menu-id">M49</span>
+        <div class="menu-name">Ryba pěti vůní s rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="ryba">
+      <div class="menu-card-info">
+        <span class="menu-id">M50</span>
+        <div class="menu-name">Ryba v tajemné chuti s rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="ryba">
+      <div class="menu-card-info">
+        <span class="menu-id">M51</span>
+        <div class="menu-name">Krevety s míchanou zeleninou a rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="ryba">
+      <div class="menu-card-info">
+        <span class="menu-id">M52</span>
+        <div class="menu-name">Krevety „Kung-pao" s rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="ryba">
+      <div class="menu-card-info">
+        <span class="menu-id">M53</span>
+        <div class="menu-name">Chobotnice v pikantní omáčce s rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="ryba">
+      <div class="menu-card-info">
+        <span class="menu-id">M54</span>
+        <div class="menu-name">Chobotnice s bambus. a houbami, rýže</div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-cat="vegeta">
+      <div class="menu-card-info">
+        <span class="menu-id">M55</span>
+        <div class="menu-name">Opražená zelenina na buddhistické omáčce s rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="vegeta">
+      <div class="menu-card-info">
+        <span class="menu-id">M56</span>
+        <div class="menu-name">Míchaný „Tou-fu" s rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="vegeta">
+      <div class="menu-card-info">
+        <span class="menu-id">M57</span>
+        <div class="menu-name">Tou-fu po Sečuánsku s rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="vegeta">
+      <div class="menu-card-info">
+        <span class="menu-id">M58</span>
+        <div class="menu-name">Tou-fu se třemi masa a rýží</div>
+      </div>
+    </div>
+
+    <div class="menu-card" data-cat="nudle">
+      <div class="menu-card-info">
+        <span class="menu-id">M59</span>
+        <div class="menu-name">Smažené rýžové nudle s kuřecím masem</div>
+      </div>
+    </div>
+    <div class="menu-card star" data-cat="nudle">
+      <div class="menu-card-info">
+        <span class="menu-id">M60</span>
+        <div class="menu-name">Smažené rýžové nudle s krevetami <span class="menu-star-icon">⭐</span></div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="nudle">
+      <div class="menu-card-info">
+        <span class="menu-id">M61</span>
+        <div class="menu-name">Smažené rýžové nudle se třemi masa</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="nudle">
+      <div class="menu-card-info">
+        <span class="menu-id">M62</span>
+        <div class="menu-name">Smažené nudle na kari (nebo smažená rýže)</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="nudle">
+      <div class="menu-card-info">
+        <span class="menu-id">M63</span>
+        <div class="menu-name">Smažené nudle se zeleninou (nebo smažená rýže)</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="nudle">
+      <div class="menu-card-info">
+        <span class="menu-id">M64</span>
+        <div class="menu-name">Smažené nudle s kuřecím masem (nebo smažená rýže)</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="nudle">
+      <div class="menu-card-info">
+        <span class="menu-id">M65</span>
+        <div class="menu-name">Smažená rýže s krevetami (nebo smažené nudle)</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="nudle">
+      <div class="menu-card-info">
+        <span class="menu-id">M66</span>
+        <div class="menu-name">Smažená rýže se třemi masa (nebo smažené nudle)</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="nudle">
+      <div class="menu-card-info">
+        <span class="menu-id">M67</span>
+        <div class="menu-name">Polévka s rýžovými nudlemi a dvěma masa</div>
+      </div>
+    </div>
+
+    <div class="menu-card star" data-cat="thajska">
+      <div class="menu-card-info">
+        <span class="menu-id">S1</span>
+        <div class="menu-name">Nasi – smažená rýže s krevetami, kuřecím a vepřovým masem, zeleninou po thajsku <span class="menu-star-icon">⭐</span></div>
+      </div>
+    </div>
+    <div class="menu-card star" data-cat="thajska">
+      <div class="menu-card-info">
+        <span class="menu-id">S2</span>
+        <div class="menu-name">Bami – smažené nudle s krevetami, kuřecím a vepřovým masem, zeleninou po thajsku <span class="menu-star-icon">⭐</span></div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="thajska">
+      <div class="menu-card-info">
+        <span class="menu-id">T1</span>
+        <div class="menu-name">Kuřecí maso po Thajsku s rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="thajska">
+      <div class="menu-card-info">
+        <span class="menu-id">T2</span>
+        <div class="menu-name">Vepřové maso po Thajsku s rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="thajska">
+      <div class="menu-card-info">
+        <span class="menu-id">T3</span>
+        <div class="menu-name">Ryba po Thajsku s rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="thajska">
+      <div class="menu-card-info">
+        <span class="menu-id">T4</span>
+        <div class="menu-name">Hovězí po Thajsku s rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="thajska">
+      <div class="menu-card-info">
+        <span class="menu-id">T5</span>
+        <div class="menu-name">Kachna po Thajsku s rýží</div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="thajska">
+      <div class="menu-card-info">
+        <span class="menu-id">T6</span>
+        <div class="menu-name">Tři druhy masa s rýží po Thajsku</div>
+      </div>
+    </div>
+
+    <div class="menu-card star" data-cat="ostatni">
+      <div class="menu-card-info">
+        <span class="menu-id">M20</span>
+        <div class="menu-name">Smažený sýr s hranolkami <span class="menu-star-icon">⭐</span></div>
+      </div>
+    </div>
+
+  </div><!-- /menu-grid -->
+    <div class="menu-fade-overlay"></div>
+  </div><!-- /menu-wrap -->
+  <div class="menu-footer fade delay-3">
+    <button class="btn-show-more" id="showMoreBtn" onclick="toggleMenu()">
+      <span id="showMoreLabel">Ukázat více jídel</span>
+      <span class="arrow">▼</span>
+    </button>
+    <br>
+    <p>Hledáte plný jídelní lístek? Rádi poradíme při návštěvě nebo po telefonu.</p>
+    <a href="tel:233334088" class="btn-primary">📞 Zavolat a rezervovat</a>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="reviews-header fade">
+    <div class="section-label">Google recenze</div>
+    <div class="rating-display">
+      <span class="rating-num">4,5</span>
+      <span class="rating-stars">★★★★½</span>
+    </div>
+    <p class="rating-sub">Na základě 537 ověřených recenzí Google</p>
+    <h2>Co říkají naši hosté</h2>
+  </div>
+  <div class="reviews-grid fade delay-1">
+
+    <div class="review">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Obsluha je naprosto skvělá – usměvavá, rychlá a pozorná. Porce jsou obrovské a jídlo fantastické za skvělou cenu. Určitě se vrátím!</p>
+      <div class="review-author">
+        <div class="avatar">MK</div>
+        <div>
+          <div class="author-name">Markéta K.</div>
+          <div class="author-date">Google · před 2 týdny</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Kuřecí se žampiony je prostě nejlepší věc, co jsem tady jedla. A ta ostrokyslá polévka! Skvělá cena za takovou kvalitu a velikost porcí.</p>
+      <div class="review-author">
+        <div class="avatar">TP</div>
+        <div>
+          <div class="author-name">Tomáš P.</div>
+          <div class="author-date">Google · před měsícem</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Klidné místo, perfektní na oběd i večeři. Personál si pamatuje, co si dávám – to je dnes opravdu vzácné. Moje oblíbená restaurace v Dejvicích.</p>
+      <div class="review-author">
+        <div class="avatar">AV</div>
+        <div>
+          <div class="author-name">Anna V.</div>
+          <div class="author-date">Google · před 3 týdny</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- INFO -->
+<section id="info">
+  <div class="info-grid">
+    <div class="fade">
+      <div class="section-label">Navštivte nás</div>
+      <h2>Vždy uvítáme nové tváře</h2>
+      <div class="info-block">
+        <h3>🕐 Otevírací doba</h3>
+        <div class="info-row"><span class="label">Pondělí – Pátek</span><span class="value green">11:00 – 22:00</span></div>
+        <div class="info-row"><span class="label">Sobota</span><span class="value green">11:00 – 22:00</span></div>
+        <div class="info-row"><span class="label">Neděle</span><span class="value green">11:00 – 22:00</span></div>
+      </div>
+      <div class="info-block">
+        <h3>🛎️ Služby & Platby</h3>
+        <div class="info-row"><span class="label">Jídlo na místě</span><span class="value">✓ Ano</span></div>
+        <div class="info-row"><span class="label">Takeaway (s sebou)</span><span class="value">✓ Ano</span></div>
+        <div class="info-row"><span class="label">Online objednávky</span><span class="value">✓ Dostupné</span></div>
+        <div class="info-row"><span class="label">Platba kartou</span><span class="value">✓ Ano</span></div>
+        <div class="info-row"><span class="label">Rezervace</span><span class="value">✓ Telefonicky</span></div>
+      </div>
+    </div>
+    <div class="fade delay-1">
+      <div class="map-box">
+        <div class="map-icon">📍</div>
+        <h3>Cai Shen – Praha 6</h3>
+        <p>Jugoslávských partyzánů 1426/7<br>160 00 Praha 6 – Dejvice</p>
+      </div>
+      <a href="tel:233334088" class="cta-link gold">📞 233 334 088 – Zavolat</a>
+      <a href="https://maps.google.com/?q=Cai+Shen+Praha+6+Dejvice" target="_blank" class="cta-link dark">🗺️ Otevřít v Mapách Google</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-wrap fade">
+    <div class="section-label">Rezervace & Objednávky</div>
+    <h2>Stůl nebo donáška –<br>rozhodněte se hned</h2>
+    <p>
+      Zarezervujte si stůl na večeři, objednejte oběd s sebou nebo si nechte
+      jídlo přivézt domů. Jsme tu pro vás každý den od 11:00 do 22:00.
+    </p>
+    <div class="cta-btns">
+      <a href="tel:233334088" class="btn-primary" style="font-size:1rem;padding:18px 40px;">📞 Zavolat a objednat</a>
+      <a href="#menu" class="btn-outline">Prohlédnout menu</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">蔡 <span>Cai Shen</span></div>
+  <ul class="footer-nav">
+    <li><a href="#about">O nás</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#reviews">Recenze</a></li>
+    <li><a href="#info">Kontakt</a></li>
+  </ul>
+  <p class="footer-copy">
+    Jugoslávských partyzánů 1426/7, 160 00 Praha 6 – Dejvice<br>
+    Tel: +420 233 334 088 · Každý den 11:00 – 22:00<br><br>
+    © 2025 Cai Shen. Všechna práva vyhrazena.
+  </p>
+</footer>
+
+<script>
+  // Scroll nav
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('navLinks').classList.remove('open');
+  }
+
+  // Fade-in on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.fade').forEach(el => io.observe(el));
+
+  // Menu tabs – real filtering + reset show-more on tab switch
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const filter = tab.dataset.filter;
+      document.querySelectorAll('.menu-card').forEach(card => {
+        const matchCat = filter === 'vse' || card.dataset.cat === filter;
+        card.classList.toggle('hidden', !matchCat);
+      });
+      // collapse back and recalculate row height
+      const wrap = document.getElementById('menuWrap');
+      wrap.classList.add('collapsed');
+      document.getElementById('showMoreBtn').classList.remove('open');
+      document.getElementById('showMoreLabel').textContent = 'Ukázat více jídel';
+      setRowHeight();
+    });
+  });
+
+  // Calculate height of one grid row and set CSS var
+  function setRowHeight() {
+    const grid = document.getElementById('menuGrid');
+    const cards = Array.from(grid.querySelectorAll('.menu-card:not(.hidden)'));
+    if (!cards.length) return;
+    // Find first card that's below the first card (i.e. second row starts)
+    const firstTop = cards[0].getBoundingClientRect().top;
+    let rowHeight = cards[0].offsetHeight;
+    for (let i = 1; i < cards.length; i++) {
+      const top = cards[i].getBoundingClientRect().top;
+      if (top > firstTop + 4) { // new row
+        rowHeight = Math.round(cards[i - 1].getBoundingClientRect().bottom - grid.getBoundingClientRect().top);
+        break;
+      }
+    }
+    const gap = parseInt(getComputedStyle(grid).gap) || 16;
+    document.getElementById('menuWrap').style.setProperty('--row-h', (rowHeight + gap) + 'px');
+  }
+
+  // Toggle expand/collapse
+  function toggleMenu() {
+    const wrap = document.getElementById('menuWrap');
+    const btn = document.getElementById('showMoreBtn');
+    const label = document.getElementById('showMoreLabel');
+    const isCollapsed = wrap.classList.contains('collapsed');
+    if (isCollapsed) {
+      wrap.classList.remove('collapsed');
+      btn.classList.add('open');
+      label.textContent = 'Skrýt';
+    } else {
+      wrap.classList.add('collapsed');
+      btn.classList.remove('open');
+      label.textContent = 'Ukázat více jídel';
+      // Scroll back to menu top
+      document.getElementById('menu').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  // Init row height after fonts load
+  window.addEventListener('load', () => { setRowHeight(); });
+  window.addEventListener('resize', () => { setRowHeight(); });
+</script>
+</body>
+</html>
